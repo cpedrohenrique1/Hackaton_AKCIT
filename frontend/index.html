@@ -7,63 +7,141 @@
     <title>Avaliação de Redação ENEM</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 40px;
-            background-color: #f4f4f4;
+         :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --radius: 12px;
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         }
         
-        form,
-        #historico {
-            max-width: 700px;
-            margin: 30px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ccc;
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 0 12px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-top: 32px;
+            font-size: clamp(22px, 4vw, 30px);
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        /* CARD BASE */
+        
+        .card,
+        .small-card {
+            width: 100%;
+            max-width: 760px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 26px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
         }
         
         textarea,
-        input[type="email"],
-        input[type="password"],
-        input[type="text"] {
+        input,
+        select {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            font-size: 15px;
         }
         
         button {
-            background-color: #28a745;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
             width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        button:hover {
+            background: var(--primary-dark);
         }
         
         #logout-btn {
-            background-color: #c82333;
-            width: auto;
-            margin-top: 10px;
+            background: var(--danger);
+            width: fit-content;
+            padding: 10px 20px;
+            margin: 15px auto;
+            display: block;
         }
         
-        #pdf-link {
+        #user-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        a#pdf-link {
             display: inline-block;
-            margin-top: 15px;
-            background: #007bff;
+            background: var(--primary);
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            font-weight: 600;
             text-decoration: none;
+            margin-top: 16px;
+            transition: 0.2s;
+        }
+        
+        a#pdf-link:hover {
+            background: var(--primary-dark);
+        }
+        
+        .flex-area {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            padding-bottom: 40px;
+        }
+        
+        pre {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: var(--radius);
+            white-space: pre-wrap;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+        /* RESPONSIVIDADE EXTRA */
+        
+        @media (min-width: 900px) {
+            .flex-area {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+            }
+            .small-card {
+                max-width: 420px;
+            }
         }
     </style>
-
 </head>
 
 <body>
@@ -71,26 +149,27 @@
     <h1>Portal de Redações ENEM</h1>
 
     <!-- LOGIN -->
-    <form id="auth-form">
-        <h2>Login</h2>
+    <form id="auth-form" class="card">
+        <h2>Entrar</h2>
 
-        <label>Email:</label>
+        <label>Email</label>
         <input type="email" id="auth-email" required>
 
-        <label>Senha:</label>
+        <label>Senha</label>
         <input type="password" id="auth-senha" required>
 
         <button type="submit">Entrar</button>
 
-        <p>Não tem conta? <a href="registro.html">Cadastrar</a></p>
+        <p style="margin-top:12px;text-align:center;">
+            Não tem conta? <a href="registro.html">Cadastrar</a>
+        </p>
     </form>
 
-
     <!-- ENVIAR REDAÇÃO -->
-    <form id="redacao-form" style="display:none;">
+    <form id="redacao-form" class="card" style="display:none;">
         <h2>Nova Redação</h2>
 
-        <label>Título:</label>
+        <label>Título</label>
         <input type="text" id="titulo" required>
 
         <label>Cole sua Redação</label>
@@ -100,37 +179,37 @@
     </form>
 
 
-    <div style="display:flex;gap:20px;justify-content:center;">
+
+    <div class="flex-area">
 
         <!-- AVALIAÇÃO -->
-        <div id="resposta" style="display:none;max-width:600px;">
+        <div id="resposta" class="small-card" style="display:none;">
             <h2>Avaliação</h2>
             <p id="avaliacaoTexto"></p>
             <a id="pdf-link" href="#" target="_blank">Baixar PDF</a>
         </div>
 
         <!-- HISTÓRICO -->
-        <div id="historico" style="display:none;max-width:600px;">
+        <div id="historico" class="small-card" style="display:none;">
             <h2>Histórico de Redações</h2>
 
-            <label>Títulos disponíveis:</label>
+            <label>Títulos disponíveis</label>
             <select id="listaTitulos"></select>
 
-            <button onclick="buscarRedacao()">Buscar</button>
+            <button onclick="buscarRedacao()">Buscar Redação</button>
 
             <h3 id="tituloRedacao"></h3>
             <pre id="conteudoRedacao"></pre>
             <p id="avaliacaoHistorico"></p>
         </div>
-    </div>
 
-    <!-- USUÁRIO -->
-    <div id="user-info" style="display:none;text-align:center;">
-        <p id="welcome-message"></p>
+
+    </div>
+    <div id="user-info" style="display:none;">
+        <p id="welcome-message" style="font-size:18px;font-weight:600;"></p>
         <button id="logout-btn">Sair</button>
     </div>
-
-
+    <!-- JS -->
     <script>
         const authForm = document.getElementById("auth-form");
         const redacaoForm = document.getElementById("redacao-form");
@@ -140,9 +219,7 @@
 
         const avaliacaoTexto = document.getElementById("avaliacaoTexto");
         const pdfLink = document.getElementById("pdf-link");
-
         const listaTitulos = document.getElementById("listaTitulos");
-
 
         /* LOGIN */
         authForm.addEventListener("submit", async(e) => {
@@ -176,8 +253,6 @@
             carregarHistorico();
         });
 
-
-
         /* ENVIAR REDAÇÃO */
         redacaoForm.addEventListener("submit", async(e) => {
             e.preventDefault();
@@ -208,8 +283,6 @@
             carregarHistorico();
         });
 
-
-
         /* CARREGAR HISTÓRICO */
         async function carregarHistorico() {
             const email = localStorage.getItem("email");
@@ -229,9 +302,7 @@
             });
         }
 
-
-
-        /* BUSCAR REDAÇÃO DO HISTÓRICO */
+        /* BUSCAR REDAÇÃO */
         async function buscarRedacao() {
             const email = localStorage.getItem("email");
             const titulo = listaTitulos.value;
@@ -246,8 +317,6 @@
             document.getElementById("avaliacaoHistorico").innerText = r.avaliacao;
         }
 
-
-
         /* AUTO LOGIN */
         document.addEventListener("DOMContentLoaded", () => {
             const email = localStorage.getItem("email");
@@ -259,12 +328,9 @@
                 userInfoDiv.style.display = "block";
 
                 document.getElementById("welcome-message").innerText = `Bem-vindo, ${email}`;
-
                 carregarHistorico();
             }
         });
-
-
 
         /* LOGOUT */
         document.getElementById("logout-btn").addEventListener("click", () => {

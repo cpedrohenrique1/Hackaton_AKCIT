@@ -52,34 +52,51 @@ print("[INIT] Diretório 'pdfs' criado/verificado.")
 # -----------------------------
 def gerar_prompt_comp1(bloco: str) -> str:
     return f"""
-Você é um corretor especializado do ENEM, focado na Competência 1:
+Você é um avaliador profissional do ENEM especializado exclusivamente na Competência 1:
 "Demonstra domínio da modalidade escrita formal da língua portuguesa".
 
+Sua tarefa é **avaliar o BLOCO COMPLETO** fornecido, que pode conter de 1 a 5 parágrafos (tema, tese, argumentos e conclusão). 
+Avalie todos os elementos textuais presentes, mesmo que estejam no meio do bloco.
 
-Você **deve avaliar o BLOCO COMPLETO** abaixo, que pode conter de 1 a 5 parágrafos da redação.
-aonde vai conter o tema, a tese, os argumentos e a conclusão.
-avalie conforme os critérios oficiais do ENEM para Competência 1.
-Avalie TUDO o que estiver no bloco:
+⚠️ REGRAS IMPORTANTES (SIGA RIGOROSAMENTE):
+- **NÃO RETORNE A REDAÇÃO**, nem trechos, nem resumos, nem paráfrases.
+- **NÃO REESCREVA** o bloco, nem produza versão corrigida.
+- O foco é **somente a análise**, nunca a reconstrução do texto.
+- A resposta deve ser **limpa, objetiva, técnica e organizada**.
+- Utilize **apenas linguagem avaliativa**, seguindo padrões usados por corretores do ENEM.
 
-REGRAS:
-- NAO RETORNE A REDAÇÃO, apenas a avaliação.
+------------------------------------
+CRITÉRIOS OFICIAIS QUE DEVEM SER ANALISADOS:
+1. Estrutura sintática (períodos bem formados, articulação frasal, ausência de truncamentos).
+2. Convenções da escrita (ortografia, acentuação, hífen, uso de maiúsculas e minúsculas).
+3. Aspectos gramaticais (concordância, regência, tempos e modos verbais, pontuação, paralelismos).
+4. Adequação ao registro formal exigido no ENEM (evitar informalidade e marcas de oralidade).
+5. Vocabulário (precisão, adequação ao gênero dissertativo-argumentativo).
 
-
-Critérios que devem ser avaliados:
-1. Estrutura sintática: períodos bem construídos, orações subordinadas corretamente organizadas.
-2. Convenções da escrita: ortografia, acentuação, uso de hífen, letras maiúsculas/minúsculas.
-3. Aspectos gramaticais: concordância verbal e nominal, regência, tempos verbais, pontuação.
-4. Registro: formalidade adequada ao ENEM.
-5. Vocabulário: precisão e adequação ao gênero dissertativo-argumentativo.
-
-Redação (bloco completo):
+------------------------------------
+TEXTO A SER AVALIADO (NÃO REPITA EM HIPÓTESE ALGUMA):
 \"\"\"{bloco}\"\"\"
 
-Resposta esperada:
-- Lista detalhada de erros encontrados em QUALQUER ponto do texto, mas nao coloque | nem ---, ordene a lista somente numericamente.
-- Recomendações para melhoria.
-- Nota estimada de 0 a 200 pontos usando os critérios oficiais.
-"""
+------------------------------------
+FORMATO EXATO DA RESPOSTA:
+1. Erros encontrados  
+   Liste detalhadamente TODOS os problemas identificados no bloco.  
+   Use numeração simples (1., 2., 3., ...).  
+   Classifique cada erro brevemente (ex.: ortografia, sintaxe, concordância, registro, vocabulário etc.)
+
+2. Recomendações objetivas de melhoria
+   Indique COMO melhorar a escrita, de forma prática, técnica e direta.
+
+3. Nota estimada (0 a 200 pontos)  
+   Atribua uma nota seguindo estritamente a escala oficial:
+   - 200 = domínio excelente; desvios mínimos ou inexistentes  
+   - 160 = bom domínio; poucos desvios  
+   - 120 = domínio mediano; erros perceptíveis  
+   - 80  = domínio insuficiente; muitos desvios  
+   - 40  = domínio precário; erros sistemáticos  
+   - 0   = desconhecimento da modalidade formal
+    """
+
 
 # -----------------------------
 # IMPORTS LANGCHAIN / FAISS / EMBEDDINGS

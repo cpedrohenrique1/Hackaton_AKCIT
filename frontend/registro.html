@@ -4,107 +4,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Cadastro | Portal ENEM</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+         :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #eef2f7;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --radius: 14px;
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
         }
         
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", sans-serif;
+        }
+        
+        body {
+            background: var(--bg);
+            padding: 12px;
         }
         
         h1 {
             text-align: center;
-            font-size: 24px;
+            margin: 24px 0;
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 700;
+            color: var(--primary-dark);
         }
         
-        .form-group {
+        h2 {
             margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .card,
+        .small-card {
+            width: 100%;
+            max-width: 760px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.3s ease-in-out;
         }
         
         label {
+            font-weight: 600;
+            margin-bottom: 6px;
             display: block;
-            font-size: 14px;
-            margin-bottom: 5px;
         }
         
-        input[type="email"],
-        input[type="password"] {
+        textarea,
+        input,
+        select {
             width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            font-size: 15px;
         }
         
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
+            background: var(--primary);
             color: white;
+            padding: 14px;
             border: none;
-            border-radius: 4px;
+            border-radius: var(--radius);
             font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
         }
         
         button:hover {
-            background-color: #45a049;
+            background: var(--primary-dark);
         }
         
-        p {
+        #logout-btn {
+            background: var(--danger);
+            width: fit-content !important;
+            padding: 10px 20px;
+            margin: 15px auto;
+            display: block;
+        }
+        
+        #user-info {
             text-align: center;
-            font-size: 14px;
+            margin-top: 20px;
+        }
+        /* ÁREA DE AVALIAÇÃO EM DESTAQUE */
+        
+        #resposta {
+            border-left: 8px solid var(--primary);
         }
         
-        .link {
-            color: #007bff;
+        #avaliacaoTexto {
+            background: #f8fafc;
+            padding: 18px;
+            border-radius: var(--radius);
+            border: 1px solid #dbe1e8;
+            font-size: 15px;
+            white-space: pre-wrap;
+        }
+        
+        a#pdf-link {
+            display: block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
             text-decoration: none;
+            margin-top: 20px;
+        }
+        /* CARDS EM COLUNAS (desktop) */
+        
+        .flex-area {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
         
-        .link:hover {
-            text-decoration: underline;
+        @media (min-width: 900px) {
+            .flex-area {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+            }
+            .small-card {
+                max-width: 420px;
+            }
+        }
+        
+        pre {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: var(--radius);
+            white-space: pre-wrap;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+        /* Animação suave */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <h1>Cadastro</h1>
+        <h1>Criar Conta</h1>
+
         <form id="register-form">
             <div class="form-group">
                 <label for="register-email">E-mail</label>
                 <input type="email" id="register-email" required placeholder="Digite seu e-mail">
             </div>
+
             <div class="form-group">
                 <label for="register-senha">Senha</label>
                 <input type="password" id="register-senha" required placeholder="Digite sua senha">
             </div>
+
             <button type="submit">Cadastrar</button>
         </form>
 
-        <p>Já tem uma conta? <a href="index.html" class="link">Fazer login</a></p>
+        <p>Já possui conta? <a href="index.html" class="link">Entrar</a></p>
     </div>
 
     <script>
         const registerForm = document.getElementById('register-form');
-        const registerEmail = document.getElementById('register-email');
-        const registerSenha = document.getElementById('register-senha');
 
-        // Submissão do formulário de cadastro
         registerForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const email = registerEmail.value;
-            const senha = registerSenha.value;
+            const email = document.getElementById('register-email').value;
+            const senha = document.getElementById('register-senha').value;
 
             fetch('/register', {
                     method: 'POST',
@@ -119,20 +216,13 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.erro) {
-                        // Verifica se o erro é sobre e-mail duplicado
-                        if (data.erro === 'Este email já está cadastrado.') {
-                            alert('Este e-mail já está registrado. Tente outro!');
-                        } else {
-                            alert(data.erro); // Exibe outros erros caso existam
-                        }
+                        alert(data.erro);
                     } else {
-                        alert(data.mensagem); // Mensagem de sucesso
-                        window.location.href = 'index.html'; // Redireciona para o login
+                        alert(data.mensagem);
+                        window.location.href = 'index.html';
                     }
                 })
-                .catch(error => {
-                    alert('Erro na comunicação com o servidor. Tente novamente.');
-                });
+                .catch(() => alert('Erro ao conectar ao servidor.'));
         });
     </script>
 
